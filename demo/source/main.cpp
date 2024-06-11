@@ -1,43 +1,17 @@
-﻿#include <QSqlDriverPlugin>
-#include <QSqlDriver>
-#include <QPluginLoader>
-#include <QDebug>
+﻿#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
-static QString dbDir = QString(PROJECT_SOURCE_DIR) + "/resource/PoemsSayings.db";
+#include "doctest/doctest.h"
+#include "test_sqlite3mc.h"
 
-int main(int argc, char *argv[])
+TEST_SUITE("test sqlite3mc suite")
 {
-    QScopedPointer<QPluginLoader> pluginLoader(new QPluginLoader("sqldrivers/sqlitecipherd.dll"));
-    if (!pluginLoader->isLoaded())
+    TEST_CASE("test sqlite3mc no encryption")
     {
-        qDebug() << "get plug instance failed: " << pluginLoader->errorString();
-    }
-    QObject* plugin = pluginLoader->instance();
-    if (!plugin)
-    {
-        qDebug() << "get plug instance failed: " << pluginLoader->errorString();
-        return -1;
-    }
-    QSqlDriverPlugin* driverPlugin = qobject_cast<QSqlDriverPlugin*>(plugin);
-    if (!driverPlugin)
-    {
-        qDebug() << "qobject_cast to QSqlDriver* failed.";
-        return -1;
+        Sqlite3mcBaseTest baseTest;
     }
 
-    QSqlDriver* driver = driverPlugin->create("SQLITECIPHER");
-    if (!driver)
+    TEST_CASE("test sqlite3mc encryption")
     {
-        qDebug() << "qobject_cast to QSqlDriver* failed.";
-        return -1;
+        Sqlite3mcEncryptionTest encryptionTest;
     }
-
-    if (!driver->open(dbDir))
-    {
-        qDebug() << "qobject_cast to QSqlDriver* failed.";
-        return -1;
-    }
-    
-
-    return 0;
 }

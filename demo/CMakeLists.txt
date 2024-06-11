@@ -20,8 +20,10 @@ if(MSVC)
 endif()
 add_executable(${TARGET} ${target_include_file} ${target_source_file})
 
-target_include_directories(${TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_include_directories(${TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/qt_project/sqlitecipher_plugin/include)
+target_include_directories(${TARGET} PRIVATE 
+       "${CMAKE_CURRENT_SOURCE_DIR}/include"
+       ${PROJECT_SOURCE_DIR}/doctest
+)
 
 target_link_libraries(${TARGET}
        PUBLIC
