@@ -17,7 +17,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/install)
 
 set(CMAKE_INCLUDE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-include(${CMAKE_INCLUDE_PATH}/qt_library.cmake)
+include(${CMAKE_INCLUDE_PATH}/qt.cmake)
 find_qt_package()
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -40,15 +40,17 @@ if (WIN32)
             WORKING_DIRECTORY D:/Microsoft\ Visual\ Studio/2022/Community/MSBuild/Current/Bin)
     endif()
 else ()
-
+    execute_process(COMMAND cmake ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build/sqlite3mc_vc17.sln 
+        /p:Configuration=${MSVC_CONFIG_MODE}
+        WORKING_DIRECTORY /opt/homebrew/bin)
 endif ()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/Src)
 
-add_subdirectory(sqlitecipher)
+# add_subdirectory(sqlitecipher)
 # add_subdirectory(test_demo)
 
-copy_qt_plugins()
-copy_qt_essential_dll()
+# copy_qt_plugins()
+# copy_qt_essential_dll()
 
 # INSTALL(DIRECTORY ${RESOURCE_PATH}
 #     DESTINATION ${CMAKE_INSTALL_PREFIX}
