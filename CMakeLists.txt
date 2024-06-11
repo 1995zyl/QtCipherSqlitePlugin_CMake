@@ -39,14 +39,17 @@ if (WIN32)
             /p:Configuration=${MSVC_CONFIG_MODE}
             WORKING_DIRECTORY D:/Microsoft\ Visual\ Studio/2022/Community/MSBuild/Current/Bin)
     endif()
+elseif (MAC)
+    execute_process(COMMAND autoreconf WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers)
+    execute_process(COMMAND mkdir ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk)
+    execute_process(COMMAND ../configure --disable-shared WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk)
+    execute_process(COMMAND make WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk)
 else ()
-    execute_process(COMMAND cmake ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build/sqlite3mc_vc17.sln 
-        /p:Configuration=${MSVC_CONFIG_MODE}
-        WORKING_DIRECTORY /opt/homebrew/bin)
+    message(STATUS "fail error: not impl!")
 endif ()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/Src)
 
-# add_subdirectory(sqlitecipher)
+add_subdirectory(sqlitecipher)
 # add_subdirectory(test_demo)
 
 # copy_qt_plugins()
