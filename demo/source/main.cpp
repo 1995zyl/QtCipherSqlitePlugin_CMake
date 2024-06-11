@@ -3,11 +3,11 @@
 #include <QPluginLoader>
 #include <QDebug>
 
-static QString dbDir = QString(PROJECT_SOURCE_DIR) + "/project_resource/db/PoemsSayings.db";
+static QString dbDir = QString(PROJECT_SOURCE_DIR) + "/resource/PoemsSayings.db";
 
 int main(int argc, char *argv[])
 {
-    QScopedPointer<QPluginLoader> pluginLoader(new QPluginLoader("sqldrivers/sqlitecipher_plugin.dll"));
+    QScopedPointer<QPluginLoader> pluginLoader(new QPluginLoader("sqldrivers/sqlitecipherd.dll"));
     if (!pluginLoader->isLoaded())
     {
         qDebug() << "get plug instance failed: " << pluginLoader->errorString();
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    QSqlDriver* driver = driverPlugin->create("SQLITECIPHER---");
+    QSqlDriver* driver = driverPlugin->create("SQLITECIPHER");
     if (!driver)
     {
         qDebug() << "qobject_cast to QSqlDriver* failed.";

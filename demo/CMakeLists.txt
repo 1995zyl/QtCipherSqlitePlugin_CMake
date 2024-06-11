@@ -19,15 +19,12 @@ if(MSVC)
        )
 endif()
 add_executable(${TARGET} ${target_include_file} ${target_source_file})
-target_include_directories(${TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-target_include_directories(${TARGET} PUBLIC 
-       ${PROJECT_SOURCE_DIR}/qt_project/sqlitecipher_plugin/include
-)
+target_include_directories(${TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_include_directories(${TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/qt_project/sqlitecipher_plugin/include)
 
 target_link_libraries(${TARGET}
        PUBLIC
        Qt${QT_VERSION_MAJOR}::Core
        Qt${QT_VERSION_MAJOR}::Sql
-       ${SQLITE3MC_PATH}/lib/sqlite3mc.lib
 )

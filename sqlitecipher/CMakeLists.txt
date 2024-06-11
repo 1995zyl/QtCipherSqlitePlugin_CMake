@@ -35,14 +35,6 @@ target_include_directories(${TARGET} PUBLIC
        ${QT_SDK_DIR}/include/QtCore/6.5.2/QtCore
 )
 
-if (WIN32)
-    
-elseif (MAC)
-    set(SQLITE3MC_LIB_PATH ${PROJECT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk/.libs/libsqlite3mc.a)
-else ()
-
-endif ()
-
 target_link_libraries(${TARGET}
        PUBLIC
        Qt${QT_VERSION_MAJOR}::Core

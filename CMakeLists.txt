@@ -29,10 +29,10 @@ message(STATUS "CMAKE_BUILD_TYPE = " ${CMAKE_BUILD_TYPE})
 if (WIN32)
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
         set(MSVC_CONFIG_MODE Debug)
-        set(SQLITE3MC_LIB_PATH ${PROJECT_SOURCE_DIR}/SQLite3MultipleCiphers/bin/vc17/lib/debug)
+        set(SQLITE3MC_LIB_PATH ${PROJECT_SOURCE_DIR}/SQLite3MultipleCiphers/bin/vc17/lib/debug/sqlite3mc_x64.lib)
     else ()
         set(MSVC_CONFIG_MODE Release)
-        set(SQLITE3MC_LIB_PATH ${PROJECT_SOURCE_DIR}/SQLite3MultipleCiphers/bin/vc17/lib/release)
+        set(SQLITE3MC_LIB_PATH ${PROJECT_SOURCE_DIR}/SQLite3MultipleCiphers/bin/vc17/lib/release/sqlite3mc_x64.lib)
     endif ()
     if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/bin)
         execute_process(COMMAND msbuild ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build/sqlite3mc_vc17.sln 
@@ -44,17 +44,17 @@ elseif (MAC)
     execute_process(COMMAND mkdir ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk)
     execute_process(COMMAND ../configure --disable-shared WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk)
     execute_process(COMMAND make WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk)
+
+    set(SQLITE3MC_LIB_PATH ${PROJECT_SOURCE_DIR}/SQLite3MultipleCiphers/build-gtk/.libs/libsqlite3mc.a)
 else ()
     message(STATUS "fail error: not impl!")
 endif ()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SQLite3MultipleCiphers/Src)
 
+add_definitions(-DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
+
 add_subdirectory(sqlitecipher)
-# add_subdirectory(test_demo)
+add_subdirectory(demo)
 
-# copy_qt_plugins()
-# copy_qt_essential_dll()
-
-# INSTALL(DIRECTORY ${RESOURCE_PATH}
-#     DESTINATION ${CMAKE_INSTALL_PREFIX}
-# )
+copy_qt_plugins()
+copy_qt_essential_dll()
