@@ -22,7 +22,7 @@ add_executable(${TARGET} ${target_include_file} ${target_source_file})
 
 target_include_directories(${TARGET} PRIVATE 
        "${CMAKE_CURRENT_SOURCE_DIR}/include"
-       ${PROJECT_SOURCE_DIR}/doctest
+       ${CMAKE_CURRENT_SOURCE_DIR}/doctest
 )
 
 target_link_libraries(${TARGET}
@@ -30,3 +30,6 @@ target_link_libraries(${TARGET}
        Qt${QT_VERSION_MAJOR}::Core
        Qt${QT_VERSION_MAJOR}::Sql
 )
+
+copy_qt_plugins()
+copy_qt_essential_dll()

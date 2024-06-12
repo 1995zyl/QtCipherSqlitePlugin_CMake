@@ -1,7 +1,13 @@
 ﻿set(TARGET sqlitecipher)
 
-file(GLOB target_include_file "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
-file(GLOB target_source_file "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
+file(GLOB target_include_file 
+       "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" 
+       "${CMAKE_CURRENT_SOURCE_DIR}/sqlite3/sqlite3mc_amalgamation.h"
+)
+file(GLOB target_source_file 
+       "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp" 
+       "${CMAKE_CURRENT_SOURCE_DIR}/sqlite3/sqlite3mc_amalgamation.c"
+)
 if(MSVC)
        source_group(
        TREE "${CMAKE_CURRENT_SOURCE_DIR}/include"
@@ -28,8 +34,10 @@ if(WIN32)
 endif ()
 
 add_definitions(-DQT_PLUGIN)
+# add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 target_include_directories(${TARGET} PUBLIC 
+       ${CMAKE_CURRENT_SOURCE_DIR}/sqlite3
        ${QT_SDK_DIR}/include/QtSql/6.5.2
        ${QT_SDK_DIR}/include/QtCore/6.5.2
        ${QT_SDK_DIR}/include/QtCore/6.5.2/QtCore
@@ -39,7 +47,7 @@ target_link_libraries(${TARGET}
        PUBLIC
        Qt${QT_VERSION_MAJOR}::Core
        Qt${QT_VERSION_MAJOR}::Sql
-       ${SQLITE3MC_LIB_PATH}
+
 )
 
 if (WIN32)

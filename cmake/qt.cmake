@@ -21,7 +21,12 @@ macro(find_qt_package)
     set(CMAKE_AUTOUIC ON)
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-    add_definitions(-DQT_SDK_DIR="${QT_SDK_DIR}")
+    include_directories(
+        ${QT_INSTALL_PATH_PREFIX}/qtbase/include
+        ${QT_INSTALL_PATH_PREFIX}/qtbase/include/QtSql/5.12.12
+        ${QT_INSTALL_PATH_PREFIX}/qtbase/include/QtCore/5.12.12
+        ${QT_INSTALL_PATH_PREFIX}/qtbase/include/QtCore/5.12.12/QtCore
+    )
 endmacro()
 
 macro(copy_qt_essential_dll)
