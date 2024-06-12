@@ -29,22 +29,3 @@ macro(find_qt_package)
     )
 endmacro()
 
-macro(copy_qt_essential_dll)
-    if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-        file(GLOB QT_ESSENTIAL_DLL 
-            "${QT_SDK_DIR}/bin/Qt6Cored.dll"
-            "${QT_SDK_DIR}/bin/Qt6Sqld.dll"
-        )
-    else ()
-        file(GLOB QT_ESSENTIAL_DLL 
-            "${QT_SDK_DIR}/bin/Qt6Core.dll"
-            "${QT_SDK_DIR}/bin/Qt6Sql.dll"
-        )
-    endif ()
-    file(COPY ${QT_ESSENTIAL_DLL} DESTINATION ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
-endmacro()
-
-macro(copy_qt_plugins)
-    file(GLOB QT_PLUGINS_DLL "${QT_SDK_DIR}/plugins")
-    file(COPY ${QT_PLUGINS_DLL} DESTINATION ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
-endmacro()
