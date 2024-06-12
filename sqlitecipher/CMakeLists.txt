@@ -47,18 +47,18 @@ target_link_libraries(${TARGET}
        PUBLIC
        Qt${QT_VERSION_MAJOR}::Core
        Qt${QT_VERSION_MAJOR}::Sql
-
 )
 
 if (WIN32)
     INSTALL(TARGETS ${TARGET} RUNTIME DESTINATION ${QT_SDK_DIR}/plugins/sqldrivers)
+
+    if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+       set(SQLITECIPHER_PDB ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/sqlitecipherd.pdb)
+    else ()
+       set(SQLITECIPHER_PDB ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/sqlitecipher.pdb)
+    endif ()
+    INSTALL(FILES ${SQLITECIPHER_PDB} DESTINATION ${QT_SDK_DIR}/plugins/sqldrivers)
 elseif (UNIX)
     INSTALL(TARGETS ${TARGET}  DESTINATION ${QT_SDK_DIR}/plugins/sqldrivers)
 endif ()
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-       set(SQLITECIPHER_PDB ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/sqlitecipherd.pdb)
-else ()
-       set(SQLITECIPHER_PDB ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/sqlitecipher.pdb)
-endif ()
-INSTALL(FILES ${SQLITECIPHER_PDB} DESTINATION ${QT_SDK_DIR}/plugins/sqldrivers)

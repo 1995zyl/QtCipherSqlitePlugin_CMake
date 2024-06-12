@@ -26,4 +26,4 @@ endif()
 message(STATUS "CMAKE_BUILD_TYPE = " ${CMAKE_BUILD_TYPE})
 
 add_subdirectory(sqlitecipher)
-# add_subdirectory(demo)
+add_subdirectory(test_plugin)

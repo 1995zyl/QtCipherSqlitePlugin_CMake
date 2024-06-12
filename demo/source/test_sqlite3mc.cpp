@@ -4,7 +4,7 @@
 #include <QPluginLoader>
 #include <QDebug>
 
-const static QString dbDir = QString(PROJECT_SOURCE_DIR) + "/resource/PoemsSayings.db";
+const static QString dbDir("test.db");
 static bool LoadSqlDriver(QSqlDriver* driver)
 {
     QScopedPointer<QPluginLoader> pluginLoader(new QPluginLoader("sqldrivers/sqlitecipherd.dll"));
