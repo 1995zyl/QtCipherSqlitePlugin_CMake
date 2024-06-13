@@ -1,0 +1,3 @@
+[submodule "QtCipherSqlitePlugin"]
+	path = QtCipherSqlitePlugin
+	url = https://github.com/devbean/QtCipherSqlitePlugin.git
