@@ -1,10 +1,4 @@
 macro(find_qt_package)
-    if (WIN32)    
-        set(QT_SDK_DIR "D:/Qt/6.5.2/msvc2019_64")
-    elseif (APPLE)
-        set(QT_SDK_DIR "/Users/wps/wps_branch_3/wps/vcpkg_install/qt5/build_arm64/qtbase")
-    endif()
-
     if(NOT EXISTS ${QT_SDK_DIR})
         message(STATUS "QT_SDK_DIR not found, try to read from environment variable: QTDIR")
         set(QT_SDK_DIR "$ENV{QTDIR}" CACHE STRING "QT_SDK_DIR read from environment variable: QTDIR" FORCE)
