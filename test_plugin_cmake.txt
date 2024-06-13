@@ -12,17 +12,36 @@ target_link_libraries(${TARGET}
 )
 
 if (WIN32)
-    add_custom_command(TARGET ${TARGET} 
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy 
-            "${QT_SDK_DIR}/lib/QtSqlKso.framework"
-            "${PROJECT_SOURCE_DIR}/bin"
+    if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+        set(QT_CORE_PATH "${QT_SDK_DIR}/bin/Qt${QT_VERSION_MAJOR}Cored.dll")
+        set(QT_SQL_PATH "${QT_SDK_DIR}/bin/Qt${QT_VERSION_MAJOR}Sqld.dll")
+        set(QT_TEST_PATH "${QT_SDK_DIR}/bin/Qt${QT_VERSION_MAJOR}Testd.dll")
+    else ()
+        set(QT_CORE_PATH "${QT_SDK_DIR}/bin/Qt${QT_VERSION_MAJOR}Core.dll")
+        set(QT_SQL_PATH "${QT_SDK_DIR}/bin/Qt${QT_VERSION_MAJOR}Sql.dll")
+        set(QT_TEST_PATH "${QT_SDK_DIR}/bin/Qt${QT_VERSION_MAJOR}Test.dll")
+    endif ()
+
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+       "${QT_CORE_PATH}"
+       "${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}"
+    )
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+       "${QT_SQL_PATH}"
+       "${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}"
+    )
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+       "${QT_TEST_PATH}"
+       "${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}"
+    )
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory 
+       "${QT_SDK_DIR}/plugins/sqldrivers"
+       "${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/plugins/sqldrivers"
+    )
+elseif (APPLE)
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory 
+        "${QT_SDK_DIR}/plugins"
+        "${PROJECT_SOURCE_DIR}/bin/plugins"
     )
 endif()
 
-add_custom_command(TARGET ${TARGET} 
-       POST_BUILD
-       COMMAND ${CMAKE_COMMAND} -E copy_directory 
-       "${QT_SDK_DIR}/plugins"
-       "${PROJECT_SOURCE_DIR}/bin/plugins"
-)

@@ -8,20 +8,6 @@ file(GLOB target_source_file
        "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp" 
        "${CMAKE_CURRENT_SOURCE_DIR}/sqlite3/sqlite3mc_amalgamation.c"
 )
-if(MSVC)
-       source_group(
-       TREE "${CMAKE_CURRENT_SOURCE_DIR}/include"
-       PREFIX Include
-       FILES ${target_include_file}
-       )
-endif(MSVC)
-if(MSVC)
-       source_group(
-       TREE "${CMAKE_CURRENT_SOURCE_DIR}/source"
-       PREFIX Source
-       FILES ${target_source_file}
-       )
-endif()
 add_library(${TARGET} SHARED ${target_include_file} ${target_source_file})
 target_include_directories(${TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
@@ -40,7 +26,6 @@ elseif (APPLE)
 endif ()
 
 add_definitions(-DQT_PLUGIN)
-# add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 if(WIN32)
        target_include_directories(${TARGET} PUBLIC 
@@ -62,10 +47,8 @@ if (WIN32)
 
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
        set(SQLITECIPHER_PDB ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/sqlitecipherd.pdb)
-    else ()
-       set(SQLITECIPHER_PDB ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/sqlitecipher.pdb)
+       INSTALL(FILES ${SQLITECIPHER_PDB} DESTINATION ${QT_SDK_DIR}/plugins/sqldrivers)
     endif ()
-    INSTALL(FILES ${SQLITECIPHER_PDB} DESTINATION ${QT_SDK_DIR}/plugins/sqldrivers)
 elseif (APPLE)
     INSTALL(TARGETS ${TARGET}  DESTINATION ${QT_SDK_DIR}/plugins/sqldrivers)
 endif ()
