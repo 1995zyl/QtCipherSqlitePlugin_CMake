@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.18)
+
+project(sqlitecipher
+    VERSION 1.0
+    DESCRIPTION "sqlitecipher by cmake"
+    HOMEPAGE_URL "https://github.com/1995zyl/sqlitecipher"
+    # LANGUAGES CXX
+)
+
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/install)
+
+set(CMAKE_INCLUDE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+include(${CMAKE_INCLUDE_PATH}/qt.cmake)
+find_qt_package()
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+add_subdirectory(sqlitecipher)
+add_subdirectory(test_plugin)

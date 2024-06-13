@@ -1,0 +1,28 @@
+set(TARGET test_plugin)
+
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Test REQUIRED)
+
+add_executable(${TARGET} "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
+
+target_link_libraries(${TARGET}
+       PUBLIC
+       Qt${QT_VERSION_MAJOR}::Core
+       Qt${QT_VERSION_MAJOR}::Sql
+       Qt${QT_VERSION_MAJOR}::Test
+)
+
+if (WIN32)
+    add_custom_command(TARGET ${TARGET} 
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy 
+            "${QT_SDK_DIR}/lib/QtSqlKso.framework"
+            "${PROJECT_SOURCE_DIR}/bin"
+    )
+endif()
+
+add_custom_command(TARGET ${TARGET} 
+       POST_BUILD
+       COMMAND ${CMAKE_COMMAND} -E copy_directory 
+       "${QT_SDK_DIR}/plugins"
+       "${PROJECT_SOURCE_DIR}/bin/plugins"
+)

@@ -1,9 +1,8 @@
 macro(find_qt_package)
     if (WIN32)    
         set(QT_SDK_DIR "D:/Qt/6.5.2/msvc2019_64")
-    else()
-        set(QT_INSTALL_PATH_PREFIX "/Users/wps/wps_branch_3/wps/vcpkg_install/qt5/build_arm64")
-        set(QT_SDK_DIR "${QT_INSTALL_PATH_PREFIX}/qtbase/lib/cmake/Qt5")
+    elseif (APPLE)
+        set(QT_SDK_DIR "/Users/wps/wps_branch_3/wps/vcpkg_install/qt5/build_arm64/qtbase")
     endif()
 
     if(NOT EXISTS ${QT_SDK_DIR})
@@ -21,11 +20,13 @@ macro(find_qt_package)
     set(CMAKE_AUTOUIC ON)
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-    include_directories(
-        ${QT_INSTALL_PATH_PREFIX}/qtbase/include
-        ${QT_INSTALL_PATH_PREFIX}/qtbase/include/QtSql/5.12.12
-        ${QT_INSTALL_PATH_PREFIX}/qtbase/include/QtCore/5.12.12
-        ${QT_INSTALL_PATH_PREFIX}/qtbase/include/QtCore/5.12.12/QtCore
-    )
+    if (APPLE)
+        include_directories(
+            ${QT_SDK_DIR}/include
+            ${QT_SDK_DIR}/include/QtSql/5.12.12
+            ${QT_SDK_DIR}/include/QtCore/5.12.12
+            ${QT_SDK_DIR}/include/QtCore/5.12.12/QtCore
+        )
+    endif()
 endmacro()
 
