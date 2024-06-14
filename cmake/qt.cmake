@@ -14,13 +14,7 @@ macro(find_qt_package)
     set(CMAKE_AUTOUIC ON)
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-    if (APPLE)
-        include_directories(
-            ${QT_SDK_DIR}/include
-            ${QT_SDK_DIR}/include/QtSql/5.12.12
-            ${QT_SDK_DIR}/include/QtCore/5.12.12
-            ${QT_SDK_DIR}/include/QtCore/5.12.12/QtCore
-        )
-    endif()
-endmacro()
+    include_directories(${TARGET} PRIVATE ${QT_SDK_DIR}/include)
 
+    message(STATUS "QT_VERSION = " ${QT_VERSION})
+endmacro()

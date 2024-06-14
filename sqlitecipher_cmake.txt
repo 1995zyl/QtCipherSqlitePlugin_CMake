@@ -9,7 +9,6 @@ file(GLOB target_source_file
        "${CMAKE_CURRENT_SOURCE_DIR}/sqlite3/sqlite3mc_amalgamation.c"
 )
 add_library(${TARGET} SHARED ${target_include_file} ${target_source_file})
-target_include_directories(${TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 if(WIN32)
        if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -28,7 +27,7 @@ endif ()
 add_definitions(-DQT_PLUGIN)
 
 if(WIN32)
-       target_include_directories(${TARGET} PUBLIC 
+       target_include_directories(${TARGET} PRIVATE 
               ${CMAKE_CURRENT_SOURCE_DIR}/sqlite3
               ${QT_SDK_DIR}/include/QtSql/6.5.2
               ${QT_SDK_DIR}/include/QtCore/6.5.2

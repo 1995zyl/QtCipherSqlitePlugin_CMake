@@ -40,8 +40,8 @@ if (WIN32)
     )
 elseif (APPLE)
     add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory 
-        "${QT_SDK_DIR}/plugins"
-        "${PROJECT_SOURCE_DIR}/bin/plugins"
+        "${QT_SDK_DIR}/plugins/sqldrivers"
+        "${PROJECT_SOURCE_DIR}/bin/plugins/sqldrivers"
     )
 endif()
 
