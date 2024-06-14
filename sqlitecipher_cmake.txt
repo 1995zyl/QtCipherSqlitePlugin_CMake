@@ -1,11 +1,11 @@
 ﻿set(TARGET sqlitecipher)
 
 file(GLOB target_include_file 
-       "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" 
+       "${CMAKE_CURRENT_SOURCE_DIR}/*.h" 
        "${CMAKE_CURRENT_SOURCE_DIR}/sqlite3/sqlite3mc_amalgamation.h"
 )
 file(GLOB target_source_file 
-       "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp" 
+       "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" 
        "${CMAKE_CURRENT_SOURCE_DIR}/sqlite3/sqlite3mc_amalgamation.c"
 )
 add_library(${TARGET} SHARED ${target_include_file} ${target_source_file})
@@ -25,6 +25,36 @@ elseif (APPLE)
 endif ()
 
 add_definitions(-DQT_PLUGIN)
+
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)  
+add_definitions(-D_CRT_SECURE_NO_DEPRECATE)  
+add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)  
+add_definitions(-DTHREADSAFE=1)  
+add_definitions(-DSQLITE_MAX_ATTACHED=10)  
+add_definitions(-DSQLITE_SOUNDEX)  
+add_definitions(-DSQLITE_ENABLE_EXPLAIN_COMMENTS)  
+add_definitions(-DSQLITE_ENABLE_COLUMN_METADATA)  
+add_definitions(-DSQLITE_HAS_CODEC=1)  
+add_definitions(-DCODEC_TYPE=CODEC_TYPE_CHACHA20)  
+add_definitions(-DSQLITE_SECURE_DELETE)  
+add_definitions(-DSQLITE_ENABLE_FTS3)  
+add_definitions(-DSQLITE_ENABLE_FTS3_PARENTHESIS)  
+add_definitions(-DSQLITE_ENABLE_FTS4)  
+add_definitions(-DSQLITE_ENABLE_FTS5)  
+add_definitions(-DSQLITE_ENABLE_JSON1)  
+add_definitions(-DSQLITE_ENABLE_RTREE)  
+add_definitions(-DSQLITE_CORE)  
+add_definitions(-DSQLITE_ENABLE_EXTFUNC)  
+add_definitions(-DSQLITE_ENABLE_CSV)  
+add_definitions(-DSQLITE_ENABLE_SHA3)  
+add_definitions(-DSQLITE_ENABLE_CARRAY)  
+add_definitions(-DSQLITE_ENABLE_FILEIO)  
+add_definitions(-DSQLITE_ENABLE_SERIES)  
+add_definitions(-DSQLITE_TEMP_STORE=2)  
+add_definitions(-DSQLITE_USE_URI)  
+add_definitions(-DSQLITE_USER_AUTHENTICATION)
+add_definitions(-DQT_NO_CAST_TO_ASCII)
+add_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 if(WIN32)
        target_include_directories(${TARGET} PRIVATE 

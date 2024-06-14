@@ -22,5 +22,7 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+add_definitions(-DUSE_CMAKE_CONSTRUCT_PROJECT)
+
 add_subdirectory(sqlitecipher)
 add_subdirectory(test_plugin)
