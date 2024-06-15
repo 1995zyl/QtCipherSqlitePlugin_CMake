@@ -1,0 +1,44 @@
+From bf1bcb8dd721a221bfb404bd39caf6054a2d45c3 Mon Sep 17 00:00:00 2001
+From: 1995zyl <820215387@qq.com>
+Date: Sat, 15 Jun 2024 10:59:10 +0800
+Subject: [PATCH] generate QtCipherSqlitePlugin patch
+
+---
+ sqlitecipher/sqlcachedresult_p.h | 3 ++-
+ sqlitecipher/sqlitecipher.cpp    | 3 +++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/sqlitecipher/sqlcachedresult_p.h b/sqlitecipher/sqlcachedresult_p.h
+index 2453e6d..3f4de20 100644
+--- a/sqlitecipher/sqlcachedresult_p.h
++++ b/sqlitecipher/sqlcachedresult_p.h
+@@ -51,8 +51,9 @@ QT_BEGIN_HEADER
+ QT_BEGIN_NAMESPACE
+ 
+ class QVariant;
++#ifndef USE_CMAKE_CONSTRUCT_PROJECT
+ template <typename T> class QVector;
+-
++#endif
+ class SqlCachedResultPrivate;
+ 
+ class SqlCachedResult : public QSqlResult
+diff --git a/sqlitecipher/sqlitecipher.cpp b/sqlitecipher/sqlitecipher.cpp
+index e3e38d4..6bce999 100644
+--- a/sqlitecipher/sqlitecipher.cpp
++++ b/sqlitecipher/sqlitecipher.cpp
+@@ -93,8 +93,11 @@ extern "C" {
+ # include "sqlite3mc_amalgamation.h"
+ }
+ 
++#ifndef USE_CMAKE_CONSTRUCT_PROJECT
++// 以前怎么编译过去的？sqlite3与sqlite3_stmt都定义在.c文件中。
+ Q_DECLARE_METATYPE(sqlite3*)
+ Q_DECLARE_METATYPE(sqlite3_stmt*)
++#endif
+ #if (QT_VERSION >= 0x050000)
+ Q_DECLARE_OPAQUE_POINTER(sqlite3*)
+ Q_DECLARE_OPAQUE_POINTER(sqlite3_stmt*)
+-- 
+2.40.0.windows.1
+

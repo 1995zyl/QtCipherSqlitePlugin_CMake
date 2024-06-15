@@ -13,6 +13,13 @@ def copy_cmakeDir():
     if os.path.exists('cmake'):
         shutil.move('cmake', 'QtCipherSqlitePlugin/cmake') 
 
+def apply_patch():
+    gitCommand = "git -C ./QtCipherSqlitePlugin" + " apply " + os.getcwd() + "/QtCipherSqlitePlugin.patch"
+    gitCommand=gitCommand.replace('\\','/')
+    result = os.popen(gitCommand) # 执行输入的命令
+    print(result.read())
+
 if __name__ == "__main__":
     copy_cmakefiles()
     copy_cmakeDir()
+    apply_patch()

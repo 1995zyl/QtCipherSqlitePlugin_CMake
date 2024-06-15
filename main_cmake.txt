@@ -26,3 +26,4 @@ add_definitions(-DUSE_CMAKE_CONSTRUCT_PROJECT)
 
 add_subdirectory(sqlitecipher)
 add_subdirectory(test_plugin)
+add_subdirectory(demo)
