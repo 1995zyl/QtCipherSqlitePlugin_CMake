@@ -59,9 +59,9 @@ add_definitions(-DQT_NO_CAST_FROM_ASCII)
 if(WIN32)
        target_include_directories(${TARGET} PRIVATE 
               ${CMAKE_CURRENT_SOURCE_DIR}/sqlite3
-              ${QT_SDK_DIR}/include/QtSql/6.5.2
-              ${QT_SDK_DIR}/include/QtCore/6.5.2
-              ${QT_SDK_DIR}/include/QtCore/6.5.2/QtCore
+              ${QT_SDK_DIR}/include/QtSql/${QT_VERSION}
+              ${QT_SDK_DIR}/include/QtCore/${QT_VERSION}
+              ${QT_SDK_DIR}/include/QtCore/${QT_VERSION}/QtCore
        )
 endif ()
 

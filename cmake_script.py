@@ -7,7 +7,9 @@ def copy_cmakefiles():
     if os.path.exists('sqlitecipher_cmake.txt'):
         shutil.move('sqlitecipher_cmake.txt', 'QtCipherSqlitePlugin/sqlitecipher/CMakeLists.txt') 
     if os.path.exists('test_plugin_cmake.txt'):
-        shutil.move('test_plugin_cmake.txt', 'QtCipherSqlitePlugin/test_plugin/CMakeLists.txt') 
+        shutil.move('test_plugin_cmake.txt', 'QtCipherSqlitePlugin/test_plugin/CMakeLists.txt')
+    if os.path.exists('demo_cmake.txt'):
+        shutil.move('demo_cmake.txt', 'QtCipherSqlitePlugin/demo/CMakeLists.txt') 
 
 def copy_cmakeDir():
     if os.path.exists('cmake'):
