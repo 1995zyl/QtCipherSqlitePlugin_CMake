@@ -1,7 +1,7 @@
 # QtCipherSqlitePlugin_CMake
 
-### 三方库QtCipherSqlitePlugin(https://github.com/devbean/QtCipherSqlitePlugin)只能通过pro文件构建工程，
-### 需要借助于qt creator，使用起来不是很方便，因此提供CMake方式构建工程。
+### QtCipherSqlitePlugin是一种加密SQLite的Qt插件(https://github.com/devbean/QtCipherSqlitePlugin) ，功能强大、使用方便。
+### 但由于目前缺少CMake方式构建工程，导致该插件的应用受到了限制，因此提供以cmake的方式构建工程。
 
 以MacOS为例，编译过程如下：
 ```
