@@ -1,13 +1,71 @@
-From bf1bcb8dd721a221bfb404bd39caf6054a2d45c3 Mon Sep 17 00:00:00 2001
+From 774477e04f48ff2f68d58091d002e749e880e5c3 Mon Sep 17 00:00:00 2001
 From: 1995zyl <820215387@qq.com>
-Date: Sat, 15 Jun 2024 10:59:10 +0800
-Subject: [PATCH] generate QtCipherSqlitePlugin patch
+Date: Sun, 16 Jun 2024 22:58:03 +0800
+Subject: [PATCH] QtCipherSqlitePlugin compile and run test
 
 ---
- sqlitecipher/sqlcachedresult_p.h | 3 ++-
- sqlitecipher/sqlitecipher.cpp    | 3 +++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ demo/main.cpp                    | 39 ++++++++++++++++++--------------
+ sqlitecipher/sqlcachedresult_p.h |  3 ++-
+ sqlitecipher/sqlitecipher.cpp    |  2 ++
+ 3 files changed, 26 insertions(+), 18 deletions(-)
 
+diff --git a/demo/main.cpp b/demo/main.cpp
+index 7f45d3d..b433f87 100644
+--- a/demo/main.cpp
++++ b/demo/main.cpp
+@@ -101,8 +101,10 @@ int main(int argc, char *argv[])
+     QSqlDatabase dbconn = QSqlDatabase::addDatabase("SQLITECIPHER");
+     dbconn.setDatabaseName(DB_FILE_PATH); //localDB.db is already existing before running the application
+     dbconn.setPassword("pass");
+-    dbconn.setConnectOptions("QSQLITE_USE_CIPHER=sqlcipher; SQLCIPHER_LEGACY=1; SQLCIPHER_LEGACY_PAGE_SIZE=4096; QSQLITE_CREATE_KEY");
+-
++    if (!QFileInfo(DB_FILE_PATH).exists())
++        dbconn.setConnectOptions("QSQLITE_USE_CIPHER=sqlcipher; SQLCIPHER_LEGACY=1; SQLCIPHER_LEGACY_PAGE_SIZE=4096; QSQLITE_CREATE_KEY");
++    else
++        dbconn.setConnectOptions("QSQLITE_USE_CIPHER=sqlcipher; SQLCIPHER_LEGACY=1; SQLCIPHER_LEGACY_PAGE_SIZE=4096");
+     bool open = dbconn.open();
+     qDebug() << "open: " << open;
+     qDebug() << "isOpen(): " << dbconn.isOpen() << dbconn.isOpenError();
+@@ -115,21 +117,24 @@ int main(int argc, char *argv[])
+     }
+ 
+     QSqlQuery query;
+-//    query.exec("create table test (id int, name varchar)");
+-//    query.exec("insert into test values (1, 'AAA')");
+-//    query.exec("insert into test values (2, 'BBB')");
+-//    query.exec("insert into test values (3, 'CCC')");
+-//    query.exec("insert into test values (4, 'DDD')");
+-//    query.exec("insert into test values (5, 'EEE')");
+-//    query.exec("insert into test values (6, 'FFF')");
+-//    query.exec("insert into test values (7, 'GGG')");
+-//    query.exec("select * from test where name regexp '(a|A)$'");
+-//    if (query.next()) {
+-//        qDebug() << "Regexp result: " << query.value(0).toInt() << ": " << query.value(1).toString();
+-//    } else {
+-//        qDebug() << "This plugin does not support regexp.";
+-//    }
+-//    qDebug() << "----------" << endl;
++    if (!QFileInfo(DB_FILE_PATH).exists())
++    {
++        query.exec("create table test (id int, name varchar)");
++        query.exec("insert into test values (1, 'AAA')");
++        query.exec("insert into test values (2, 'BBB')");
++        query.exec("insert into test values (3, 'CCC')");
++        query.exec("insert into test values (4, 'DDD')");
++        query.exec("insert into test values (5, 'EEE')");
++        query.exec("insert into test values (6, 'FFF')");
++        query.exec("insert into test values (7, 'GGG')");
++        query.exec("select * from test where name regexp '(a|A)$'");
++        if (query.next()) {
++            qDebug() << "Regexp result: " << query.value(0).toInt() << ": " << query.value(1).toString();
++        } else {
++            qDebug() << "This plugin does not support regexp.";
++        }
++        qDebug() << "----------";
++    }
+     query.exec("select id, name from test");
+     while (query.next()) {
+         qDebug() << query.value(0).toInt() << ": " << query.value(1).toString();
 diff --git a/sqlitecipher/sqlcachedresult_p.h b/sqlitecipher/sqlcachedresult_p.h
 index 2453e6d..3f4de20 100644
 --- a/sqlitecipher/sqlcachedresult_p.h
@@ -24,15 +82,14 @@ index 2453e6d..3f4de20 100644
  
  class SqlCachedResult : public QSqlResult
 diff --git a/sqlitecipher/sqlitecipher.cpp b/sqlitecipher/sqlitecipher.cpp
-index e3e38d4..6bce999 100644
+index e3e38d4..0d76bb6 100644
 --- a/sqlitecipher/sqlitecipher.cpp
 +++ b/sqlitecipher/sqlitecipher.cpp
-@@ -93,8 +93,11 @@ extern "C" {
+@@ -93,8 +93,10 @@ extern "C" {
  # include "sqlite3mc_amalgamation.h"
  }
  
 +#ifndef USE_CMAKE_CONSTRUCT_PROJECT
-+// 以前怎么编译过去的？sqlite3与sqlite3_stmt都定义在.c文件中。
  Q_DECLARE_METATYPE(sqlite3*)
  Q_DECLARE_METATYPE(sqlite3_stmt*)
 +#endif
