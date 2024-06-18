@@ -1,7 +1,7 @@
-From 774477e04f48ff2f68d58091d002e749e880e5c3 Mon Sep 17 00:00:00 2001
-From: 1995zyl <820215387@qq.com>
-Date: Sun, 16 Jun 2024 22:58:03 +0800
-Subject: [PATCH] QtCipherSqlitePlugin compile and run test
+From 72b8ae3fe93b531323b71d8f8213a42314c6fe54 Mon Sep 17 00:00:00 2001
+From: zhangyilong <zhangyilong@wps.cn>
+Date: Tue, 18 Jun 2024 13:07:44 +0800
+Subject: [PATCH] test
 
 ---
  demo/main.cpp                    | 39 ++++++++++++++++++--------------
@@ -67,14 +67,14 @@ index 7f45d3d..b433f87 100644
      while (query.next()) {
          qDebug() << query.value(0).toInt() << ": " << query.value(1).toString();
 diff --git a/sqlitecipher/sqlcachedresult_p.h b/sqlitecipher/sqlcachedresult_p.h
-index 2453e6d..3f4de20 100644
+index 2453e6d..2148ec9 100644
 --- a/sqlitecipher/sqlcachedresult_p.h
 +++ b/sqlitecipher/sqlcachedresult_p.h
 @@ -51,8 +51,9 @@ QT_BEGIN_HEADER
  QT_BEGIN_NAMESPACE
  
  class QVariant;
-+#ifndef USE_CMAKE_CONSTRUCT_PROJECT
++#if (QT_VERSION < 0x060502)
  template <typename T> class QVector;
 -
 +#endif
@@ -82,14 +82,14 @@ index 2453e6d..3f4de20 100644
  
  class SqlCachedResult : public QSqlResult
 diff --git a/sqlitecipher/sqlitecipher.cpp b/sqlitecipher/sqlitecipher.cpp
-index e3e38d4..0d76bb6 100644
+index e3e38d4..539b972 100644
 --- a/sqlitecipher/sqlitecipher.cpp
 +++ b/sqlitecipher/sqlitecipher.cpp
 @@ -93,8 +93,10 @@ extern "C" {
  # include "sqlite3mc_amalgamation.h"
  }
  
-+#ifndef USE_CMAKE_CONSTRUCT_PROJECT
++#if (QT_VERSION < 0x060502)
  Q_DECLARE_METATYPE(sqlite3*)
  Q_DECLARE_METATYPE(sqlite3_stmt*)
 +#endif
@@ -97,5 +97,5 @@ index e3e38d4..0d76bb6 100644
  Q_DECLARE_OPAQUE_POINTER(sqlite3*)
  Q_DECLARE_OPAQUE_POINTER(sqlite3_stmt*)
 -- 
-2.40.0.windows.1
+2.32.1 (Apple Git-133)
 

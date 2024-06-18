@@ -38,7 +38,7 @@ if (WIN32)
        "${QT_SDK_DIR}/plugins/sqldrivers"
        "${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}/plugins/sqldrivers"
     )
-elseif (APPLE)
+elseif (UNIX)
     add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory 
         "${QT_SDK_DIR}/plugins/sqldrivers"
         "${PROJECT_SOURCE_DIR}/bin/plugins/sqldrivers"
