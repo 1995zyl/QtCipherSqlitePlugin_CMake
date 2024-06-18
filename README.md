@@ -11,7 +11,7 @@
 1、mkdir build
 2、cd build
 3、cmake .. -DCMAKE_BUILD_TYPE=Release -DQT_SDK_DIR="D:/Qt/6.5.2/msvc2019_64"。
-// CMAKE_BUILD_TYPE指定构建类型，默认为Release；如果没有将Qt内容添加到环境变量中，需要指定DQT_SDK_DIR目录。
+// CMAKE_BUILD_TYPE指定构建类型，默认为Release；如果没有将Qt安装目录添加到环境变量中，需要指定DQT_SDK_DIR目录。
 4、make sqlitecipher
 5、make install    // 执行此命令后，会将sqlitecipher动态库安装到qt目录中
 6、make test_plugin
