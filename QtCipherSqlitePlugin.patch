@@ -1,18 +1,31 @@
-From 72b8ae3fe93b531323b71d8f8213a42314c6fe54 Mon Sep 17 00:00:00 2001
-From: zhangyilong <zhangyilong@wps.cn>
-Date: Tue, 18 Jun 2024 13:07:44 +0800
-Subject: [PATCH] test
+From 37e0a70a87d7b4ece5d088cf4cd7379d34e7b47e Mon Sep 17 00:00:00 2001
+From: 1995zyl <820215387@qq.com>
+Date: Tue, 18 Jun 2024 22:28:02 +0800
+Subject: [PATCH] 11
 
 ---
- demo/main.cpp                    | 39 ++++++++++++++++++--------------
+ demo/main.cpp                    | 45 ++++++++++++++++++--------------
  sqlitecipher/sqlcachedresult_p.h |  3 ++-
  sqlitecipher/sqlitecipher.cpp    |  2 ++
- 3 files changed, 26 insertions(+), 18 deletions(-)
+ 3 files changed, 29 insertions(+), 21 deletions(-)
 
 diff --git a/demo/main.cpp b/demo/main.cpp
-index 7f45d3d..b433f87 100644
+index 7f45d3d..f51ed06 100644
 --- a/demo/main.cpp
 +++ b/demo/main.cpp
+@@ -2,9 +2,9 @@
+ #include <QCoreApplication>
+ #include <QTemporaryDir>
+ 
+-#ifndef QT_DEBUG
+-#error Must be built in debug mode!
+-#endif
++// #ifndef QT_DEBUG
++// #error Must be built in debug mode!
++// #endif
+ 
+ #ifdef Q_OS_IOS
+ #  include <QtPlugin>
 @@ -101,8 +101,10 @@ int main(int argc, char *argv[])
      QSqlDatabase dbconn = QSqlDatabase::addDatabase("SQLITECIPHER");
      dbconn.setDatabaseName(DB_FILE_PATH); //localDB.db is already existing before running the application
@@ -97,5 +110,5 @@ index e3e38d4..539b972 100644
  Q_DECLARE_OPAQUE_POINTER(sqlite3*)
  Q_DECLARE_OPAQUE_POINTER(sqlite3_stmt*)
 -- 
-2.32.1 (Apple Git-133)
+2.40.0.windows.1
 
